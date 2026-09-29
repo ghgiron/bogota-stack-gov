@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #cc0e35;
+    --color-secondary: #fab62d;
+    --color-tertiary: #3366cc;
+    --color-text-main: #333333;
+    --color-bg-main: #f8f9fa;
+    --color-surface: #ffffff;
+    --radius-btn: 5px;
+    --radius-card: 15px;
+  }
+
+  /* Reducción de animaciones según preferencia del usuario (WCAG 2.2 AA) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color: var(--color-text-main);
+    background-color: var(--color-bg-main);
+    font-family: var(--font-work-sans), system-ui, -apple-system, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
+    color: var(--color-text-main);
+    font-weight: 700;
+  }
+
+  /* Estilos de foco universal accesible */
+  :focus-visible {
+    outline: 3px solid #3366cc;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Enlace de salto accesible para lectores de pantalla y navegación por teclado */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  .skip-link:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: auto;
+    height: auto;
+    padding: 0.75rem 1.5rem;
+    background-color: #cc0e35;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    outline: 3px solid #fab62d;
+    outline-offset: 2px;
+  }
+
+  /* Ocultar barra de desplazamiento manteniendo funcionalidad de scroll (Chrome, Safari, Firefox, Edge) */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
