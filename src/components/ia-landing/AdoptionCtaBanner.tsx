@@ -22,14 +22,14 @@ export const AdoptionCtaBanner: React.FC = () => {
         <div className="rounded-[15px] bg-surface-container-lowest p-6 sm:p-10 shadow-md border border-outline-variant/20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 flex flex-col items-start">
-              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-on-surface font-bold tracking-tight mb-3">
-                ¿Listo para modernizar la atención ciudadana en tu entidad?
+              <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1E1E1E] tracking-tight mb-3">
+                ¿Deseas implementar el modelo oficial de IA en tu entidad?
               </h2>
 
-              <p className="text-sm sm:text-base text-on-surface-variant max-w-2xl mb-6 leading-relaxed">
-                Coordina una sesión directiva con la Secretaría General. Evaluaremos tu arquitectura
-                actual y dejaremos habilitado el entorno de pruebas B2G en una sola jornada de
-                trabajo.
+              <p className="font-sans text-sm sm:text-base text-on-surface-variant max-w-2xl mb-6 leading-relaxed">
+                Coordina una sesión de trabajo técnico con la Secretaría General de la Alcaldía Mayor de
+                Bogotá D.C. para evaluar el diagnóstico de viabilidad y estructurar la hoja de ruta de vinculación
+                de tus fuentes oficiales.
               </p>
 
               {/* Botonera de Acción */}
@@ -37,7 +37,7 @@ export const AdoptionCtaBanner: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(true)}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary-container hover:bg-primary text-on-primary font-bold text-sm sm:text-base rounded-[5px] shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-tertiary focus:ring-offset-2 min-h-[44px] cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary-container hover:bg-primary text-on-primary font-heading font-bold text-sm sm:text-base rounded-[5px] shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-tertiary focus:ring-offset-2 min-h-[44px] cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-[20px]" aria-hidden="true">
                     calendar_today
@@ -46,21 +46,21 @@ export const AdoptionCtaBanner: React.FC = () => {
                 </button>
 
                 <a
-                  href="mailto:otic@alcaldiabogota.gov.co"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-semibold text-sm sm:text-base rounded-[5px] transition-all focus:outline-none focus:ring-2 focus:ring-tertiary focus:ring-offset-2 border border-outline-variant/20 min-h-[44px]"
+                  href="#ruta-adopcion"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-heading font-semibold text-sm sm:text-base rounded-[5px] transition-all focus:outline-none focus:ring-2 focus:ring-tertiary focus:ring-offset-2 border border-outline-variant/20 min-h-[44px]"
                 >
                   <span
                     className="material-symbols-outlined text-[20px] text-tertiary"
                     aria-hidden="true"
                   >
-                    support_agent
+                    alt_route
                   </span>
-                  Contactar Mesa Técnica OTIC
+                  Ver Ruta de 4 Pasos
                 </a>
               </div>
 
               {/* Datos de Contacto Directo */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full pt-4 border-t border-outline-variant/20 text-on-surface-variant text-xs sm:text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full pt-4 border-t border-outline-variant/20 text-on-surface-variant text-xs sm:text-sm font-sans">
                 <div className="flex items-center gap-2">
                   <span
                     className="material-symbols-outlined text-primary text-[18px]"
@@ -77,16 +77,7 @@ export const AdoptionCtaBanner: React.FC = () => {
                   >
                     call
                   </span>
-                  <span>Línea 195</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span
-                    className="material-symbols-outlined text-secondary text-[18px]"
-                    aria-hidden="true"
-                  >
-                    mail
-                  </span>
-                  <span>otic@alcaldiabogota.gov.co</span>
+                  <span>Línea 195 · Alcaldía Mayor de Bogotá D.C.</span>
                 </div>
               </div>
             </div>
@@ -98,11 +89,11 @@ export const AdoptionCtaBanner: React.FC = () => {
                   verified
                 </span>
               </div>
-              <span className="font-heading text-base font-bold text-on-surface mb-1">
-                Acompañamiento OTIC 100%
+              <span className="font-heading text-base font-bold text-[#1E1E1E] mb-1">
+                Acompañamiento Distrital
               </span>
-              <p className="text-xs text-on-surface-variant">
-                Desde la homologación de seguridad hasta el despliegue con la Secretaría General.
+              <p className="font-sans text-xs text-on-surface-variant leading-relaxed">
+                Coordinación técnica y metodológica con la Secretaría General de la Alcaldía Mayor de Bogotá D.C.
               </p>
             </div>
           </div>
@@ -124,15 +115,15 @@ export const AdoptionCtaBanner: React.FC = () => {
                 </span>
                 <h3
                   id="schedule-modal-title"
-                  className="font-heading text-lg font-bold text-on-surface"
+                  className="font-heading text-lg font-bold text-[#1E1E1E]"
                 >
-                  Agendar Demostración Directiva GovLLM
+                  Agendar Demostración Institucional
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
-                className="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant"
+                className="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant cursor-pointer"
                 aria-label="Cerrar modal"
               >
                 <span className="material-symbols-outlined text-[20px]">close</span>
@@ -142,16 +133,16 @@ export const AdoptionCtaBanner: React.FC = () => {
             {scheduled ? (
               <div className="p-6 bg-[#EAF5EC] rounded-[10px] text-center flex flex-col items-center gap-2 text-[#1B7A2E]">
                 <span className="material-symbols-outlined text-[40px]">check_circle</span>
-                <span className="font-bold text-base">¡Solicitud Radicada con Éxito!</span>
-                <p className="text-xs text-on-surface-variant">
-                  El asesor de la Mesa OTIC se comunicará con el enlace técnico en menos de 24 horas
-                  hábiles.
+                <span className="font-heading font-bold text-base">¡Solicitud Radicada con Éxito!</span>
+                <p className="font-sans text-xs text-on-surface-variant">
+                  El equipo técnico de la Secretaría General se comunicará con el enlace designado para
+                  coordinar la sesión de trabajo.
                 </p>
               </div>
             ) : (
               <form
                 onSubmit={handleSubmitSchedule}
-                className="flex flex-col gap-3 text-xs sm:text-sm"
+                className="flex flex-col gap-3 text-xs sm:text-sm font-sans"
               >
                 <div>
                   <label
@@ -175,7 +166,7 @@ export const AdoptionCtaBanner: React.FC = () => {
                       htmlFor="responsable-input"
                       className="font-semibold text-on-surface block mb-1"
                     >
-                      Nombre del Directivo / Enlace:
+                      Nombre del Servidor Responsable:
                     </label>
                     <input
                       id="responsable-input"
@@ -190,13 +181,13 @@ export const AdoptionCtaBanner: React.FC = () => {
                       htmlFor="email-input"
                       className="font-semibold text-on-surface block mb-1"
                     >
-                      Correo Institucional (@gov.co):
+                      Correo Institucional:
                     </label>
                     <input
                       id="email-input"
                       required
                       type="email"
-                      placeholder="usuario@entidad.gov.co"
+                      placeholder="responsable@entidad.distrital"
                       className="w-full h-11 px-3 rounded-[5px] bg-surface-container-low border border-outline-variant/30 text-on-surface focus:outline-none focus:ring-2 focus:ring-tertiary"
                     />
                   </div>
@@ -210,10 +201,10 @@ export const AdoptionCtaBanner: React.FC = () => {
                     id="caso-select"
                     className="w-full h-11 px-3 rounded-[5px] bg-surface-container-low border border-outline-variant/30 text-on-surface focus:outline-none focus:ring-2 focus:ring-tertiary"
                   >
-                    <option>Línea Oficial de WhatsApp (Meta Cloud API)</option>
-                    <option>Web Chatbot en Portal Web Distrital</option>
-                    <option>Copiloto para Funcionarios (PQRSDF / CRM)</option>
-                    <option>Integración Personalizada API REST</option>
+                    <option>Canal Oficial de Mensajería</option>
+                    <option>Asistente Web en Sedes Electrónicas Distritales</option>
+                    <option>Asistencia a Servidores en Gestión de PQRS</option>
+                    <option>Integración Personalizada por API REST</option>
                   </select>
                 </div>
 
@@ -221,15 +212,15 @@ export const AdoptionCtaBanner: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-4 py-2.5 rounded-[5px] bg-surface-container hover:bg-surface-container-high text-xs font-semibold text-on-surface"
+                    className="px-4 py-2.5 rounded-[5px] bg-surface-container hover:bg-surface-container-high text-xs font-semibold text-on-surface cursor-pointer"
                   >
                     Cancelar
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2.5 rounded-[5px] bg-primary-container hover:bg-primary text-on-primary font-bold text-xs"
+                    className="px-5 py-2.5 rounded-[5px] bg-primary-container hover:bg-primary text-on-primary font-heading font-bold text-xs cursor-pointer"
                   >
-                    Confirmar Solicitud B2G
+                    Confirmar Solicitud
                   </button>
                 </div>
               </form>

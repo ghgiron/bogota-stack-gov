@@ -103,7 +103,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
 
         {/* Subtítulo en Work Sans */}
         <p className="font-body text-base sm:text-lg text-on-surface-variant max-w-3xl mb-8 leading-relaxed">
-          Sistema de diseño, interoperabilidad y hub de conocimiento para integración al Portal
+          Sistema de diseño, interoperabilidad y repositorio normativo para integración al Portal
           Transaccional de Bogotá.
         </p>
 
@@ -149,7 +149,7 @@ export const HeroSearch: React.FC<HeroSearchProps> = ({
                       ? "/soluciones-compartidas"
                       : activeFacet === "Kit UI"
                         ? "/kit-ui/colores"
-                        : "/hub-de-conocimiento#repositorio-normativo"
+                        : "/guias-de-vinculacion#repositorio-normativo"
                 }
                 className="text-xs font-heading font-semibold text-primary hover:underline inline-flex items-center gap-1 shrink-0 ml-auto"
               >

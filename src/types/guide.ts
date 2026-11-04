@@ -7,7 +7,15 @@ export type GuideStatus = "Borrador" | "Revisión" | "Publicado";
 
 export type AudienceType = "UX / UI" | "Ingeniería" | "Directivo";
 
-export type ContentBlockType = "texto" | "codigo" | "componente" | "alerta";
+export type ContentBlockType =
+  | "texto"
+  | "codigo"
+  | "componente"
+  | "alerta"
+  | "diagram"
+  | "diagrama"
+  | "matrix"
+  | "matriz";
 
 export interface TextBlockContent {
   html: string;
@@ -32,6 +40,43 @@ export interface AlertBlockContent {
   message: string;
 }
 
+export type DiagramType =
+  | "C4 Contexto / Contenedores"
+  | "Diagrama de Secuencia"
+  | "Flujo de Gobernanza"
+  | "c4"
+  | "sequence"
+  | "governance";
+
+export interface DiagramBlockContent {
+  type?: DiagramType;
+  diagramType?: DiagramType;
+  title: string;
+  boundaryDescription?: string;
+  code: string;
+  format?: "mermaid" | "svg";
+}
+
+export interface MatrixColumn {
+  key: string;
+  label: string;
+}
+
+export interface MatrixRow {
+  id: string;
+  cells: Record<string, string>;
+  status?: "success" | "error" | "danger" | "warning" | "neutral";
+  statusBadge?: "success" | "danger" | "warning" | "neutral";
+  statusText?: string;
+}
+
+export interface MatrixBlockContent {
+  title: string;
+  description?: string;
+  columns: MatrixColumn[];
+  rows: MatrixRow[];
+}
+
 export interface ContentBlock {
   id: string;
   type: ContentBlockType;
@@ -41,6 +86,8 @@ export interface ContentBlock {
     code?: CodeBlockContent;
     component?: ComponentBlockContent;
     alert?: AlertBlockContent;
+    diagram?: DiagramBlockContent;
+    matrix?: MatrixBlockContent;
   };
 }
 

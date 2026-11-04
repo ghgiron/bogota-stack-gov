@@ -7,22 +7,22 @@ import { SkipToContent } from "@/components/layout/SkipToContent";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-montserrat",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
 });
 
 const workSans = Work_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-work-sans",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "Bogotá Stack | Plataforma B2G de Estandarización Digital",
   description:
-    "Hub central de la Secretaría General de la Alcaldía Mayor de Bogotá para Guías de Vinculación, Developer KIT, Hub de Conocimiento y herramientas de IA Distrital.",
+    "Hub central de la Secretaría General de la Alcaldía Mayor de Bogotá para Guías de Vinculación, Developer KIT, Repositorio Normativo y herramientas de IA Distrital.",
   keywords: [
     "Bogotá Stack",
     "Alcaldía Mayor de Bogotá",
@@ -47,8 +47,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${montserrat.variable} ${workSans.variable}`}>
-      <body className="min-h-screen flex flex-col bg-bg-main text-text-main antialiased font-body selection:bg-primary selection:text-white">
+    <html lang="es" className={`${workSans.variable} ${montserrat.variable}`}>
+      <body className={`${workSans.variable} ${montserrat.variable} font-sans bg-[#F8F9FA] text-[#1E1E1E] antialiased min-h-screen flex flex-col selection:bg-primary selection:text-white`}>
         {/* Enlace accesible para saltar directo al contenido */}
         <SkipToContent />
 

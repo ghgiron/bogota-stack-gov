@@ -33,7 +33,7 @@ export default function IaiFormulaBox() {
       symbol: "D",
       weight: "15%",
       name: "Dependencias Interinstitucionales",
-      desc: "Nivel de interoperabilidad con otras entidades (RNEC, Catastro, DIAN, MinTIC, BOGDATA) para validaciones automáticas Once-Only.",
+      desc: "Nivel de interoperabilidad con otras entidades (RNEC, Catastro, DIAN, Secretaría General, BOGDATA) para validaciones automáticas Once-Only.",
     },
     {
       symbol: "O",
@@ -179,20 +179,19 @@ export default function IaiFormulaBox() {
           </div>
           <div className="flex flex-col">
             <span className="font-heading text-sm font-bold text-on-surface">
-              Calculadora Interactiva de IAI con IA Distrital
+              Adopción y Asistencia con IA Distrital
             </span>
             <span className="text-xs text-on-surface-variant">
-              Utiliza nuestro agente predictivo para evaluar las variables de tu trámite y obtener
-              la hoja de ruta técnica en minutos.
+              Conoce los lineamientos institucionales y solicita la integración del modelo oficial para tu entidad.
             </span>
           </div>
         </div>
 
         <Link
-          href="/ia-distrital/recomendador"
+          href="/ia-distrital"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-[5px] bg-tertiary text-white text-xs font-heading font-semibold hover:bg-tertiary/90 transition-colors shadow-sm shrink-0 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-[#0049AE] focus:ring-offset-2"
         >
-          <span>Calcular IAI de mi Trámite</span>
+          <span>Conocer IA Distrital</span>
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

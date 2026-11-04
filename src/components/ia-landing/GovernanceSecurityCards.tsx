@@ -10,18 +10,17 @@ export const GovernanceSecurityCards: React.FC = () => {
               security
             </span>
             <span className="font-bold uppercase tracking-wider text-primary">
-              Confianza Pública y Marco Jurídico Vinculante
+              Marco Jurídico e Institucional
             </span>
           </div>
 
-          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-on-surface tracking-tight mb-3 font-bold">
+          <h2 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1E1E1E] tracking-tight mb-3">
             Gobernanza Institucional, Seguridad y Cumplimiento Normativo
           </h2>
 
-          <p className="text-sm sm:text-base text-on-surface-variant leading-relaxed">
-            Diseñado expresamente para superar las auditorías más rigurosas de la Personería de
-            Bogotá, la Contraloría Distrital y los comités de seguridad de la información
-            institucional.
+          <p className="font-sans text-sm sm:text-base text-on-surface-variant leading-relaxed">
+            Estructurado bajo los lineamientos de seguridad de la información y transparencia pública de la
+            Alcaldía Mayor de Bogotá D.C. y la Secretaría General.
           </p>
         </div>
 
@@ -38,13 +37,12 @@ export const GovernanceSecurityCards: React.FC = () => {
                 <span className="text-[11px] font-bold text-primary uppercase tracking-wider block">
                   Protección de Datos
                 </span>
-                <h3 className="font-heading text-lg font-bold text-on-surface mt-1 mb-2">
-                  Cumplimiento Estricto Ley 1581 (PII Scrubber)
+                <h3 className="font-heading text-lg font-bold text-[#1E1E1E] mt-1 mb-2">
+                  Cumplimiento de la Ley 1581 de 2012
                 </h3>
-                <p className="text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
-                  Filtro de anonimización en memoria RAM en tiempo real antes de enviar cualquier
-                  consulta al motor. Cédulas, placas, números telefónicos y datos de salud son
-                  ofuscados irrevocablemente.
+                <p className="font-sans text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
+                  Módulo de anonimización en memoria antes del procesamiento de cualquier consulta. Números de
+                  documento de identidad, placas, teléfonos y datos sensibles son ofuscados de manera irreversible.
                 </p>
                 <ul className="flex flex-col gap-2 text-xs sm:text-sm text-on-surface">
                   <li className="flex items-start gap-2">
@@ -54,9 +52,8 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>
-                      Ningún dato de ciudadanos se almacena para re-entrenar redes neuronales
-                      externas.
+                    <span className="font-sans">
+                      Ningún dato de la ciudadanía se almacena para entrenar modelos o servicios externos.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -66,14 +63,14 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>Logs auditables con cifrado AES-256 en reposo.</span>
+                    <span className="font-sans">Registros operativos cifrados y trazables para auditoría distrital.</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
 
-          {/* Pilar 2: Soberanía Tecnológica */}
+          {/* Pilar 2: Infraestructura Pública Distrital */}
           <div className="rounded-[15px] bg-surface-container-lowest p-6 shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-[10px] bg-tertiary/10 flex items-center justify-center text-tertiary shrink-0">
@@ -83,15 +80,14 @@ export const GovernanceSecurityCards: React.FC = () => {
               </div>
               <div className="flex-1">
                 <span className="text-[11px] font-bold text-tertiary uppercase tracking-wider block">
-                  Soberanía Tecnológica
+                  Infraestructura Distrital
                 </span>
-                <h3 className="font-heading text-lg font-bold text-on-surface mt-1 mb-2">
-                  Decreto Distrital 575 de 2023 (Infraestructura Pública)
+                <h3 className="font-heading text-lg font-bold text-[#1E1E1E] mt-1 mb-2">
+                  Gestión y Custodia Pública Institucional
                 </h3>
-                <p className="text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
-                  Conexión nativa con el Data Warehouse Distrital (DWH) bajo los estándares de la
-                  Consejería Distrital de TIC. Soberanía operativa alojada en infraestructura
-                  nacional certificada Tier IV.
+                <p className="font-sans text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
+                  Operación bajo las directrices tecnológicas de la Secretaría General de la Alcaldía Mayor de
+                  Bogotá D.C., asegurando la permanencia de la información en servidores seguros y bajo control público.
                 </p>
                 <ul className="flex flex-col gap-2 text-xs sm:text-sm text-on-surface">
                   <li className="flex items-start gap-2">
@@ -101,9 +97,7 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>
-                      Residencia exclusiva de los datos dentro del territorio de Colombia.
-                    </span>
+                    <span className="font-sans">Residencia exclusiva de los datos dentro del territorio nacional.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span
@@ -112,9 +106,8 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>
-                      Monitoreo de integridad y telemetría por la Dirección de Informática de la
-                      Alcaldía.
+                    <span className="font-sans">
+                      Supervisión continua por parte de las dependencias técnicas de la Alcaldía Mayor.
                     </span>
                   </li>
                 </ul>
@@ -134,13 +127,12 @@ export const GovernanceSecurityCards: React.FC = () => {
                 <span className="text-[11px] font-bold text-secondary uppercase tracking-wider block">
                   Rigor Jurídico
                 </span>
-                <h3 className="font-heading text-lg font-bold text-on-surface mt-1 mb-2">
-                  Arquitectura Anti-Alucinaciones (RAG Determinístico)
+                <h3 className="font-heading text-lg font-bold text-[#1E1E1E] mt-1 mb-2">
+                  Arquitectura Determinística y Cero Conjeturas
                 </h3>
-                <p className="text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
-                  Umbral de certeza matemática fijado en &gt;98.5%. Si el motor no localiza el
-                  artículo legal exacto o la norma no está vigente, bloquea la deducción
-                  probabilística y deriva al funcionario.
+                <p className="font-sans text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
+                  El sistema restringe la generación probabilística de respuestas cuando no existe un respaldo
+                  documental preciso en las fuentes oficiales distritales, derivando el caso a los servidores públicos.
                 </p>
                 <ul className="flex flex-col gap-2 text-xs sm:text-sm text-on-surface">
                   <li className="flex items-start gap-2">
@@ -150,7 +142,7 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>Cita hipervinculada a la fuente oficial del Registro Distrital.</span>
+                    <span className="font-sans">Citas normativas directas a los actos administrativos distritales.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span
@@ -159,7 +151,7 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>Cero respuestas basadas en datos genéricos de internet público.</span>
+                    <span className="font-sans">Cero inferencias generadas desde fuentes no verificadas.</span>
                   </li>
                 </ul>
               </div>
@@ -176,15 +168,14 @@ export const GovernanceSecurityCards: React.FC = () => {
               </div>
               <div className="flex-1">
                 <span className="text-[11px] font-bold text-primary uppercase tracking-wider block">
-                  Inclusión Ciudadana
+                  Inclusión y Accesibilidad
                 </span>
-                <h3 className="font-heading text-lg font-bold text-on-surface mt-1 mb-2">
+                <h3 className="font-heading text-lg font-bold text-[#1E1E1E] mt-1 mb-2">
                   Lenguaje Claro y Accesibilidad (WCAG 2.2 AA)
                 </h3>
-                <p className="text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
-                  Redacción estructurada con base en los principios de lectura fácil y empatía
-                  ciudadana. Totalmente legible para sistemas de soporte auditivo, lector de
-                  pantalla e intérprete LSC distrital.
+                <p className="font-sans text-xs sm:text-sm text-on-surface-variant mb-4 leading-relaxed">
+                  Pautas de redacción comprensibles y directas para la ciudadanía, compatibles con lectores de
+                  pantalla, sistemas de navegación por teclado y mecanismos de accesibilidad distritales.
                 </p>
                 <ul className="flex flex-col gap-2 text-xs sm:text-sm text-on-surface">
                   <li className="flex items-start gap-2">
@@ -194,7 +185,7 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>Compatibilidad validada con NVDA, JAWS y VoiceOver.</span>
+                    <span className="font-sans">Compatibilidad con tecnologías de asistencia y lectura en pantalla.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span
@@ -203,9 +194,8 @@ export const GovernanceSecurityCards: React.FC = () => {
                     >
                       check
                     </span>
-                    <span>
-                      Capacidad de traducción simplificada y orientación territorial por
-                      UPZ/Localidad.
+                    <span className="font-sans">
+                      Redacción orientada a simplificar los pasos y requisitos para la ciudadanía.
                     </span>
                   </li>
                 </ul>

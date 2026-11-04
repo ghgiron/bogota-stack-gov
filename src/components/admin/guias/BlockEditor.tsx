@@ -6,6 +6,11 @@ import type {
   ComponentBlockContent,
   ContentBlock,
   ContentBlockType,
+  DiagramBlockContent,
+  DiagramType,
+  MatrixBlockContent,
+  MatrixColumn,
+  MatrixRow,
   TextBlockContent,
 } from "@/types/guide";
 import {
@@ -25,16 +30,21 @@ import {
   HelpCircle,
   Info,
   Italic,
+  KeyRound,
   Layers,
   LayoutGrid,
   List,
   ListOrdered,
+  Network,
   Plus,
   Quote,
+  Smartphone,
   Sparkles,
+  Table,
   Terminal,
   Trash2,
   Type,
+  Workflow,
   X,
   XCircle,
 } from "lucide-react";
@@ -89,6 +99,30 @@ export const REGISTERED_COMPONENTS = [
     description: "Evaluador cuantitativo de cumplimiento de los 8 principios del Kit UI Bogotá.",
     icon: Sparkles,
     badge: "Métricas",
+  },
+  {
+    id: "bwallet-oid4vci-simulator",
+    name: "Simulador Dual: Emisión OID4VCI (Portal / Sisbén) + BWallet Móvil [Identidad]",
+    description:
+      "Simulador interactivo de emisión W3C de Credenciales Verificables y sincronización con BWallet.",
+    icon: Smartphone,
+    badge: "Identidad",
+  },
+  {
+    id: "kyc-4steps-wizard",
+    name: "Wizard Interactivo: Enrolamiento Biométrico KYC (4 Pasos) [Identidad]",
+    description:
+      "Flujo interactivo de captura documental, OCR Azure, prueba de vida y validación ANI.",
+    icon: CheckCircle2,
+    badge: "Identidad",
+  },
+  {
+    id: "auth-paradigm-comparator",
+    name: "Comparador Arquitectónico: Autenticación Federada vs. Descentralizada [Identidad]",
+    description:
+      "Matriz interactiva de separación de responsabilidades entre Keycloak SSO y BWallet W3C.",
+    icon: KeyRound,
+    badge: "Identidad",
   },
 ];
 
@@ -150,6 +184,77 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({ blocks, onChange }) =>
             title: "Pauta Técnica Distrital",
             message:
               "Describe aquí una advertencia, recomendación o regla obligatoria para la entidad.",
+          },
+        };
+        break;
+      case "diagram":
+      case "diagrama":
+        initialContent = {
+          diagram: {
+            type: "c4",
+            title: "Arquitectura C4: Contexto de Identidad y Acceso Distrital",
+            boundaryDescription:
+              "Frontera segura entre bb-identity-access, Keycloak y Autenticador Walt.id",
+            code: `graph TB
+  subgraph Ciudadania["La Ciudadanía"]
+    User["Persona Titular (BWallet Móvil)"]
+  end
+  subgraph Distrito["Ecosistema Distrital de Bogotá"]
+    BB["bb-identity-access (Autoridad de Ciclo de Vida)"]
+    IdP["Keycloak IdP (OIDC + PKCE S256)"]
+    Issuer["Autenticador / Walt.id Issuer"]
+  end
+  User -->|OID4VP Presentación| IdP
+  User -->|OID4VCI Oferta de Credencial| Issuer
+  BB -->|Autoriza Emisión| Issuer`,
+          },
+        };
+        break;
+      case "matrix":
+      case "matriz":
+        initialContent = {
+          matrix: {
+            title: "Matriz de Tratamiento de Datos y Retención (GovStack §6.8)",
+            description:
+              "Clasificación de PII y políticas de retención con criterio Once-Only para la ciudadanía",
+            columns: [
+              { key: "campo", label: "Dato / Atributo" },
+              { key: "categoria", label: "Clasificación PII" },
+              { key: "almacenamiento", label: "Almacenamiento Permanente" },
+              { key: "retencion", label: "Retención / Ciclo de Vida" },
+            ],
+            rows: [
+              {
+                id: "row-1",
+                cells: {
+                  campo: "Imágenes de Cédula (Frente / Dorso)",
+                  categoria: "Biometría / Documental Crítica",
+                  almacenamiento: "❌ No (CosmosDB Efímero con TTL)",
+                  retencion: "Purga automática al finalizar sesión KYC (evento KycAssetsPurged)",
+                },
+                status: "error",
+              },
+              {
+                id: "row-2",
+                cells: {
+                  campo: "Selfie Facial en Vivo",
+                  categoria: "Biométrica",
+                  almacenamiento: "❌ No",
+                  retencion: "En memoria durante Face Verify (sin retención en Azure)",
+                },
+                status: "error",
+              },
+              {
+                id: "row-3",
+                cells: {
+                  campo: "identityHash (Seudonimizado)",
+                  categoria: "Identificador Seudónimo",
+                  almacenamiento: "✅ Sí (PostgreSQL bb-identity-access)",
+                  retencion: "Persistencia para ciclo de vida y revocación",
+                },
+                status: "success",
+              },
+            ],
           },
         };
         break;
@@ -282,6 +387,108 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({ blocks, onChange }) =>
     onChange(updated);
   };
 
+  // Actualizar diagrama
+  const handleUpdateDiagram = (id: string, updates: Partial<DiagramBlockContent>) => {
+    const updated = blocks.map((b) => {
+      if (b.id !== id) return b;
+      return {
+        ...b,
+        content: {
+          ...b.content,
+          diagram: {
+            type: b.content.diagram?.type || "c4",
+            title: b.content.diagram?.title || "",
+            boundaryDescription: b.content.diagram?.boundaryDescription || "",
+            code: b.content.diagram?.code || "",
+            ...updates,
+          },
+        },
+      };
+    });
+    onChange(updated);
+  };
+
+  // Actualizar matriz / tabla técnica
+  const handleUpdateMatrix = (id: string, updates: Partial<MatrixBlockContent>) => {
+    const updated = blocks.map((b) => {
+      if (b.id !== id) return b;
+      return {
+        ...b,
+        content: {
+          ...b.content,
+          matrix: {
+            title: b.content.matrix?.title || "",
+            description: b.content.matrix?.description || "",
+            columns: b.content.matrix?.columns || [],
+            rows: b.content.matrix?.rows || [],
+            ...updates,
+          },
+        },
+      };
+    });
+    onChange(updated);
+  };
+
+  // Helper para añadir fila a una matriz
+  const handleAddMatrixRow = (blockId: string) => {
+    const block = blocks.find((b) => b.id === blockId);
+    if (!block || !block.content.matrix) return;
+    const currentCols = block.content.matrix.columns;
+    const currentRows = block.content.matrix.rows;
+    const newCells: Record<string, string> = {};
+    currentCols.forEach((col) => {
+      newCells[col.key] = "Nuevo dato";
+    });
+    const newRow: MatrixRow = {
+      id: `row-${Date.now()}`,
+      cells: newCells,
+      status: "neutral",
+    };
+    handleUpdateMatrix(blockId, { rows: [...currentRows, newRow] });
+  };
+
+  // Helper para eliminar fila de una matriz
+  const handleRemoveMatrixRow = (blockId: string, rowId: string) => {
+    const block = blocks.find((b) => b.id === blockId);
+    if (!block || !block.content.matrix) return;
+    const filtered = block.content.matrix.rows.filter((r) => r.id !== rowId);
+    handleUpdateMatrix(blockId, { rows: filtered });
+  };
+
+  // Helper para actualizar celda de una fila
+  const handleUpdateMatrixCell = (
+    blockId: string,
+    rowId: string,
+    columnKey: string,
+    value: string,
+  ) => {
+    const block = blocks.find((b) => b.id === blockId);
+    if (!block || !block.content.matrix) return;
+    const rows = block.content.matrix.rows.map((r) => {
+      if (r.id !== rowId) return r;
+      return {
+        ...r,
+        cells: { ...r.cells, [columnKey]: value },
+      };
+    });
+    handleUpdateMatrix(blockId, { rows });
+  };
+
+  // Helper para cambiar status de una fila
+  const handleUpdateMatrixRowStatus = (
+    blockId: string,
+    rowId: string,
+    status: MatrixRow["status"],
+  ) => {
+    const block = blocks.find((b) => b.id === blockId);
+    if (!block || !block.content.matrix) return;
+    const rows = block.content.matrix.rows.map((r) => {
+      if (r.id !== rowId) return r;
+      return { ...r, status };
+    });
+    handleUpdateMatrix(blockId, { rows });
+  };
+
   const copyToClipboard = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
@@ -355,6 +562,22 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({ blocks, onChange }) =>
               <AlertTriangle className="w-4 h-4 text-secondary" />
               <span>+ Alerta / Tip</span>
             </button>
+            <button
+              type="button"
+              onClick={() => handleAddBlock("diagram")}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 text-xs font-heading font-bold text-text-main shadow-2xs transition-colors"
+            >
+              <Network className="w-4 h-4 text-blue-600" />
+              <span>+ Diagrama / Arquitectura</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => handleAddBlock("matrix")}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 text-xs font-heading font-bold text-text-main shadow-2xs transition-colors"
+            >
+              <Table className="w-4 h-4 text-emerald-600" />
+              <span>+ Matriz / Tabla Técnica</span>
+            </button>
           </div>
         </div>
       ) : (
@@ -397,6 +620,18 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({ blocks, onChange }) =>
                         <>
                           <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
                           <span className="text-amber-600">Alerta / Regla de Negocio</span>
+                        </>
+                      )}
+                      {(block.type === "diagram" || block.type === "diagrama") && (
+                        <>
+                          <Network className="w-3.5 h-3.5 text-blue-600" />
+                          <span className="text-blue-600">Diagrama / Arquitectura GovStack</span>
+                        </>
+                      )}
+                      {(block.type === "matrix" || block.type === "matriz") && (
+                        <>
+                          <Table className="w-3.5 h-3.5 text-emerald-600" />
+                          <span className="text-emerald-600">Matriz / Tabla Técnica Estructurada</span>
                         </>
                       )}
                     </span>
@@ -794,6 +1029,317 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({ blocks, onChange }) =>
                       })()}
                     </div>
                   )}
+
+                  {/* TIPO 5: DIAGRAMA / ARQUITECTURA */}
+                  {(block.type === "diagram" || block.type === "diagrama") && (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                          <label
+                            htmlFor={`diag-type-${block.id}`}
+                            className="block text-xs font-semibold text-text-main mb-1"
+                          >
+                            Tipo de Diagrama
+                          </label>
+                          <select
+                            id={`diag-type-${block.id}`}
+                            value={block.content.diagram?.type || "c4"}
+                            onChange={(e) =>
+                              handleUpdateDiagram(block.id, {
+                                type: e.target.value as DiagramType,
+                              })
+                            }
+                            className="w-full h-10 px-3 text-xs sm:text-sm rounded-md border border-gray-300 bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-[#CC0E35] focus:border-[#CC0E35]"
+                          >
+                            <option value="c4">C4 Contexto / Contenedores</option>
+                            <option value="sequence">Diagrama de Secuencia</option>
+                            <option value="governance">Flujo de Gobernanza y Ciclo de Vida</option>
+                          </select>
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label
+                            htmlFor={`diag-title-${block.id}`}
+                            className="block text-xs font-semibold text-text-main mb-1"
+                          >
+                            Título del Diagrama Arquitectónico
+                          </label>
+                          <input
+                            id={`diag-title-${block.id}`}
+                            type="text"
+                            value={block.content.diagram?.title || ""}
+                            onChange={(e) =>
+                              handleUpdateDiagram(block.id, { title: e.target.value })
+                            }
+                            placeholder="ej. Mapa de Contextos y Frontera de Autenticación"
+                            className="w-full h-10 px-3 text-xs sm:text-sm rounded-md border border-gray-300 bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-[#CC0E35] focus:border-[#CC0E35]"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor={`diag-boundary-${block.id}`}
+                          className="block text-xs font-semibold text-text-main mb-1"
+                        >
+                          Descripción de Frontera y Bounded Context
+                        </label>
+                        <input
+                          id={`diag-boundary-${block.id}`}
+                          type="text"
+                          value={block.content.diagram?.boundaryDescription || ""}
+                          onChange={(e) =>
+                            handleUpdateDiagram(block.id, { boundaryDescription: e.target.value })
+                          }
+                          placeholder="ej. Frontera entre bb-identity-access, Keycloak y Autenticador Walt.id"
+                          className="w-full h-10 px-3 text-xs sm:text-sm rounded-md border border-gray-300 bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-[#CC0E35] focus:border-[#CC0E35]"
+                        />
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label
+                            htmlFor={`diag-code-${block.id}`}
+                            className="text-xs font-semibold text-text-main"
+                          >
+                            Código Fuente (Mermaid / SVG estructurado)
+                          </label>
+                          <span className="text-[11px] text-text-muted">
+                            Sintaxis Mermaid: graph TB, sequenceDiagram o stateDiagram
+                          </span>
+                        </div>
+                        <textarea
+                          id={`diag-code-${block.id}`}
+                          rows={6}
+                          value={block.content.diagram?.code || ""}
+                          onChange={(e) =>
+                            handleUpdateDiagram(block.id, { code: e.target.value })
+                          }
+                          placeholder="graph TB&#10;  A[bb-identity-access] -->|Autorización| B[Walt.id Issuer]..."
+                          className="w-full p-3 font-mono text-xs rounded-md border border-gray-300 bg-gray-900 text-gray-100 focus:outline-none focus:ring-2 focus:ring-[#CC0E35] focus:border-[#CC0E35] resize-y"
+                        />
+                      </div>
+
+                      {/* Live Preview del Diagrama */}
+                      <div className="p-4 rounded-card bg-surface-container-low border border-blue-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 uppercase tracking-wider">
+                              Vista Previa: {block.content.diagram?.type || "c4"}
+                            </span>
+                            <span className="font-heading font-bold text-xs text-text-main">
+                              {block.content.diagram?.title || "Diagrama de Arquitectura"}
+                            </span>
+                          </div>
+                          {block.content.diagram?.boundaryDescription && (
+                            <span className="text-[11px] text-blue-700 font-medium">
+                              Frontera: {block.content.diagram.boundaryDescription}
+                            </span>
+                          )}
+                        </div>
+                        <div className="p-4 rounded-md bg-white border border-gray-200 font-mono text-xs overflow-x-auto">
+                          <pre className="text-gray-800 whitespace-pre-wrap">
+                            {block.content.diagram?.code || "// Código de diagrama vacío"}
+                          </pre>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TIPO 6: MATRIZ / TABLA TÉCNICA */}
+                  {(block.type === "matrix" || block.type === "matriz") && (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label
+                            htmlFor={`matrix-title-${block.id}`}
+                            className="block text-xs font-semibold text-text-main mb-1"
+                          >
+                            Título de la Matriz / Tabla
+                          </label>
+                          <input
+                            id={`matrix-title-${block.id}`}
+                            type="text"
+                            value={block.content.matrix?.title || ""}
+                            onChange={(e) =>
+                              handleUpdateMatrix(block.id, { title: e.target.value })
+                            }
+                            placeholder="ej. Matriz de Tratamiento de Datos y Retención"
+                            className="w-full h-10 px-3 text-xs sm:text-sm rounded-md border border-gray-300 bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-[#CC0E35] focus:border-[#CC0E35]"
+                          />
+                        </div>
+                        <div>
+                          <label
+                            htmlFor={`matrix-desc-${block.id}`}
+                            className="block text-xs font-semibold text-text-main mb-1"
+                          >
+                            Descripción / Criterio Normativo
+                          </label>
+                          <input
+                            id={`matrix-desc-${block.id}`}
+                            type="text"
+                            value={block.content.matrix?.description || ""}
+                            onChange={(e) =>
+                              handleUpdateMatrix(block.id, { description: e.target.value })
+                            }
+                            placeholder="ej. GovStack Identity §6.8 / Ley 1581 de 2012"
+                            className="w-full h-10 px-3 text-xs sm:text-sm rounded-md border border-gray-300 bg-white text-text-main focus:outline-none focus:ring-2 focus:ring-[#CC0E35] focus:border-[#CC0E35]"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Filas de la matriz */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-text-main">
+                            Filas Registradas ({block.content.matrix?.rows?.length || 0})
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleAddMatrixRow(block.id)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-heading font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded border border-emerald-300 transition-colors"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            <span>Añadir Fila</span>
+                          </button>
+                        </div>
+
+                        <div className="space-y-2">
+                          {block.content.matrix?.rows?.map((row, rIdx) => (
+                            <div
+                              key={row.id || rIdx}
+                              className="p-3 rounded-md bg-gray-50 border border-gray-200 space-y-2"
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                                  Fila {rIdx + 1}
+                                </span>
+                                <div className="flex items-center gap-2">
+                                  <label
+                                    htmlFor={`row-status-${block.id}-${row.id}`}
+                                    className="text-[11px] font-medium text-text-muted"
+                                  >
+                                    Estado:
+                                  </label>
+                                  <select
+                                    id={`row-status-${block.id}-${row.id}`}
+                                    value={row.status || "neutral"}
+                                    onChange={(e) =>
+                                      handleUpdateMatrixRowStatus(
+                                        block.id,
+                                        row.id,
+                                        e.target.value as MatrixRow["status"],
+                                      )
+                                    }
+                                    className="h-7 px-2 text-xs rounded border border-gray-300 bg-white"
+                                  >
+                                    <option value="success">✅ Conforme / Permitido / Sí</option>
+                                    <option value="error">❌ No / Prohibido / Crítico</option>
+                                    <option value="warning">⚠️ Precaución / Condicional</option>
+                                    <option value="neutral">⚪ Neutro / N/A</option>
+                                  </select>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleRemoveMatrixRow(block.id, row.id)}
+                                    className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded"
+                                    title="Eliminar fila"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+                                {block.content.matrix?.columns?.map((col) => (
+                                  <div key={col.key}>
+                                    <label
+                                      htmlFor={`cell-${block.id}-${row.id}-${col.key}`}
+                                      className="block text-[10px] font-medium text-gray-500 mb-0.5"
+                                    >
+                                      {col.label}
+                                    </label>
+                                    <input
+                                      id={`cell-${block.id}-${row.id}-${col.key}`}
+                                      type="text"
+                                      value={row.cells[col.key] || ""}
+                                      onChange={(e) =>
+                                        handleUpdateMatrixCell(
+                                          block.id,
+                                          row.id,
+                                          col.key,
+                                          e.target.value,
+                                        )
+                                      }
+                                      className="w-full h-8 px-2 text-xs rounded border border-gray-300 bg-white"
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Live Preview de la Matriz */}
+                      <div className="p-4 rounded-card bg-surface-container-low border border-emerald-200">
+                        <div className="mb-2">
+                          <h6 className="font-heading font-bold text-xs text-emerald-900">
+                            Vista Previa: {block.content.matrix?.title || "Matriz Técnica"}
+                          </h6>
+                          {block.content.matrix?.description && (
+                            <p className="text-[11px] text-text-muted">
+                              {block.content.matrix.description}
+                            </p>
+                          )}
+                        </div>
+                        <div className="overflow-x-auto rounded-md border border-gray-200 bg-white">
+                          <table className="w-full text-left text-xs">
+                            <thead className="bg-gray-50 border-b border-gray-200 font-heading font-bold text-gray-700">
+                              <tr>
+                                {block.content.matrix?.columns?.map((col) => (
+                                  <th key={col.key} className="px-3 py-2">
+                                    {col.label}
+                                  </th>
+                                ))}
+                                <th className="px-3 py-2 text-right">Estado</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-100">
+                              {block.content.matrix?.rows?.map((row, rIdx) => (
+                                <tr key={row.id || rIdx} className="hover:bg-gray-50/50">
+                                  {block.content.matrix?.columns?.map((col) => (
+                                    <td key={col.key} className="px-3 py-2 text-text-main">
+                                      {row.cells[col.key] || "—"}
+                                    </td>
+                                  ))}
+                                  <td className="px-3 py-2 text-right">
+                                    {row.status === "success" && (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[5px] bg-emerald-50 text-emerald-700 font-medium text-[11px]">
+                                        <Check className="w-3 h-3" /> Conforme
+                                      </span>
+                                    )}
+                                    {row.status === "error" && (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[5px] bg-red-50 text-red-700 font-medium text-[11px]">
+                                        <X className="w-3 h-3" /> Restringido
+                                      </span>
+                                    )}
+                                    {row.status === "warning" && (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[5px] bg-amber-50 text-amber-700 font-medium text-[11px]">
+                                        <AlertTriangle className="w-3 h-3" /> Condicional
+                                      </span>
+                                    )}
+                                    {(!row.status || row.status === "neutral") && (
+                                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[5px] bg-gray-100 text-gray-600 font-medium text-[11px]">
+                                        N/A
+                                      </span>
+                                    )}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             );
@@ -838,6 +1384,22 @@ export const BlockEditor: React.FC<BlockEditorProps> = ({ blocks, onChange }) =>
           >
             <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
             <span>+ Alerta</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleAddBlock("diagram")}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white hover:bg-gray-50 border border-gray-300 text-xs font-heading font-semibold text-text-main shadow-2xs transition-colors"
+          >
+            <Network className="w-3.5 h-3.5 text-blue-600" />
+            <span>+ Diagrama / Arquitectura</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleAddBlock("matrix")}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white hover:bg-gray-50 border border-gray-300 text-xs font-heading font-semibold text-text-main shadow-2xs transition-colors"
+          >
+            <Table className="w-3.5 h-3.5 text-emerald-600" />
+            <span>+ Matriz / Tabla Técnica</span>
           </button>
         </div>
       </div>

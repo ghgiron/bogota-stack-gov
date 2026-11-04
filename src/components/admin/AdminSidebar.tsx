@@ -8,6 +8,7 @@ import {
   ExternalLink,
   LayoutDashboard,
   Menu,
+  Scale,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -41,6 +42,12 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       label: "Guías de Vinculación",
       icon: BookOpen,
       href: "/admin/guias",
+    },
+    {
+      id: "normativa",
+      label: "Repositorio Normativo",
+      icon: Scale,
+      href: "/admin/normativa",
     },
     {
       id: "blocks",
@@ -137,9 +144,11 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
                   item.id === "guias"
                     ? pathname.startsWith("/admin/guias") ||
                       (pathname === "/admin/dashboard" && currentTab === "guias")
-                    : pathname.startsWith("/admin/guias")
-                      ? false
-                      : currentTab === item.id;
+                    : item.id === "normativa"
+                      ? pathname.startsWith("/admin/normativa")
+                      : pathname.startsWith("/admin/guias") || pathname.startsWith("/admin/normativa")
+                        ? false
+                        : currentTab === item.id;
 
                 return (
                   <li key={item.id}>

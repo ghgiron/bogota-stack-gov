@@ -220,7 +220,7 @@ export const ModulesGrid: React.FC = () => {
             </div>
           </article>
 
-          {/* CARD 3: HUB DE CONOCIMIENTO */}
+          {/* CARD 3: REPOSITORIO NORMATIVO */}
           <article className="flex flex-col justify-between bg-surface-container-lowest rounded-card border border-surface-container-highest p-4 sm:p-5 shadow-[0_4px_16px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all relative overflow-hidden group">
             <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-1 bg-[#FAB62D]" />
             <div>
@@ -229,7 +229,7 @@ export const ModulesGrid: React.FC = () => {
                 <div className="w-10 h-10 rounded-[8px] bg-secondary-container/20 flex items-center justify-center text-on-surface group-hover:scale-105 transition-transform shrink-0">
                   <svg
                     aria-hidden="true"
-                    className="w-5 h-5"
+                    className="w-5 h-5 text-secondary"
                     fill="none"
                     stroke="currentColor"
                     strokeLinecap="round"
@@ -237,70 +237,68 @@ export const ModulesGrid: React.FC = () => {
                     strokeWidth="1.75"
                     viewBox="0 0 24 24"
                   >
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                    <path d="M9 10h6" />
-                    <path d="M9 14h4" />
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
                   </svg>
                 </div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-[5px] bg-surface-container text-[11px] font-semibold text-on-surface-variant">
-                  Conocimiento
+                  Normativa
                 </span>
               </div>
 
               {/* Título y Descripción */}
               <h3 className="font-heading text-lg sm:text-xl text-on-surface font-bold mb-1.5 group-hover:text-secondary transition-colors">
-                Hub de Conocimiento
+                Repositorio Normativo
               </h3>
               <p className="font-body text-xs sm:text-sm text-on-surface-variant mb-3 leading-relaxed">
-                Normatividad relacionada con el Portal Transaccional, interoperabilidad, racionalización de trámites,
-                metodologías y herramientas del Laboratorio de Innovación Distrital iBO.
+                Instrumentos jurídicos distritales, decretos habilitantes, directrices de interoperabilidad y marco regulatorio para la integración con Bogotá Stack.
               </p>
 
               {/* Métricas / Highlights */}
               <div className="grid grid-cols-3 gap-2 py-2 px-3 bg-surface-container-low rounded-[8px] mb-3 border border-gray-100">
                 <div className="text-center">
                   <span className="block font-heading text-base font-bold text-on-surface">
-                    Normatividad
+                    Decretos
                   </span>
                   <span className="text-[10px] text-on-surface-variant leading-tight block">
-                    Distrital TECH
+                    Distritales
                   </span>
                 </div>
                 <div className="text-center border-x border-surface-container-highest">
                   <span className="block font-heading text-base font-bold text-primary">
-                    Racionalización
+                    Leyes
                   </span>
                   <span className="text-[10px] text-on-surface-variant leading-tight block">
-                    de Trámites
+                    Nacionales
                   </span>
                 </div>
                 <div className="text-center">
                   <span className="block font-heading text-base font-bold text-tertiary">
-                    Metodologías
+                    Directrices
                   </span>
                   <span className="text-[10px] text-on-surface-variant leading-tight block">
-                    Innovación Distrital
+                    SGAB &amp; IAI
                   </span>
                 </div>
               </div>
 
               {/* Lista */}
               <ul
-                aria-label="Componentes del Hub"
+                aria-label="Componentes del Repositorio Normativo"
                 className="flex flex-col gap-1.5 mb-3 text-xs text-on-surface"
               >
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" aria-hidden="true" />
-                  <span>Normatividad distrital para interoperabilidad.</span>
+                  <span>Decretos distritales de adopción y gobernanza.</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" aria-hidden="true" />
-                  <span>Racionalización y estandarización de trámites.</span>
+                  <span>Resoluciones MinTIC de accesibilidad digital WCAG.</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" aria-hidden="true" />
-                  <span>Herramientas de la Clínica de Trámites.</span>
+                  <span>Leyes antitrámites y principio de cero papel.</span>
                 </li>
               </ul>
             </div>
@@ -308,10 +306,10 @@ export const ModulesGrid: React.FC = () => {
             {/* Botón */}
             <div className="pt-2">
               <Link
-                href="/hub-de-conocimiento"
+                href="/guias-de-vinculacion#repositorio-normativo"
                 className="w-full sm:w-auto inline-flex items-center justify-center min-h-[40px] h-10 px-5 border-2 border-primary-container text-primary-container hover:bg-primary-container hover:text-on-primary rounded-[5px] font-heading text-xs sm:text-sm font-semibold transition-all focus-visible:ring-2 focus-visible:ring-tertiary focus-visible:ring-offset-2 outline-none group/btn shadow-xs"
               >
-                <span>Ingresar</span>
+                <span>Consultar Normas</span>
                 <ArrowRight
                   className="w-3.5 h-3.5 ml-1.5 group-hover/btn:translate-x-1 transition-transform"
                   aria-hidden="true"

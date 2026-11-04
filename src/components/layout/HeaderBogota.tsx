@@ -3,8 +3,6 @@
 import {
   Accessibility,
   ArrowRight,
-  Bot,
-  BrainCircuit,
   Building2,
   ChevronDown,
   Code2,
@@ -30,7 +28,7 @@ import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import { MegamenuDropdown } from "../MegamenuDropdown";
 
-type ActiveMegamenu = "empezar" | "guias" | "soluciones" | "libreria" | "hub" | "ia" | null;
+type ActiveMegamenu = "empezar" | "guias" | "soluciones" | "libreria" | null;
 
 export const HeaderBogota: React.FC = () => {
   const [activeMenu, setActiveMenu] = useState<ActiveMegamenu>(null);
@@ -222,7 +220,7 @@ export const HeaderBogota: React.FC = () => {
                         Sobre Bogotá Stack
                       </span>
                       <span className="text-xs text-on-surface-variant leading-relaxed">
-                        Arquitectura base, gobernanza OTIC y marco institucional distrital.
+                        Arquitectura base, gobernanza institucional y marco distrital.
                       </span>
                     </Link>
 
@@ -579,99 +577,18 @@ export const HeaderBogota: React.FC = () => {
               </MegamenuDropdown>
             </div>
 
-            {/* 5. HUB DE CONOCIMIENTO */}
-            <div className="relative">
-              <Link
-                href="/hub-de-conocimiento"
-                className={`whitespace-nowrap flex items-center gap-1 px-3 py-2 border-b-2 font-heading text-[14px] transition-all min-h-[44px] h-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary ${
-                  pathname.startsWith("/hub-de-conocimiento")
-                    ? "border-primary text-primary font-semibold"
-                    : "border-transparent text-on-surface hover:text-primary hover:bg-surface-container/60 font-medium"
-                }`}
-              >
-                <span>Hub de Conocimiento</span>
-              </Link>
-            </div>
-
-            {/* 6. IA DISTRITAL */}
-            <div className="relative">
-              <button
-                id="btn-nav-ia"
-                type="button"
-                aria-expanded={activeMenu === "ia"}
-                aria-haspopup="true"
-                onClick={() => toggleMenu("ia")}
-                className={`whitespace-nowrap flex items-center gap-1 px-3 py-2 border-b-2 font-heading text-[14px] transition-all min-h-[44px] h-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary ${
-                  activeMenu === "ia" || pathname.startsWith("/ia-distrital")
-                    ? "border-primary text-primary font-semibold"
-                    : "border-transparent text-on-surface hover:text-primary hover:bg-surface-container/60 font-medium"
-                }`}
-              >
-                <span>IA Distrital</span>
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 shrink-0 ${
-                    activeMenu === "ia" ? "rotate-180 text-primary" : "text-on-surface-variant"
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
-
-              <MegamenuDropdown
-                id="megamenu-ia"
-                labelledBy="btn-nav-ia"
-                isOpen={activeMenu === "ia"}
-                onClose={() => setActiveMenu(null)}
-                widthClass="w-[520px]"
-                alignClass="right-0"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-between border-b border-surface-container-high pb-3">
-                    <span className="font-heading text-sm font-bold uppercase tracking-wider text-on-surface">
-                      Modelo de IA para el Servicio a la Ciudadanía
-                    </span>
-                    <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-secondary-fixed text-on-secondary-fixed font-bold">
-                      GovLLM v2.4
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col gap-2.5">
-                    <Link
-                      href="/ia-distrital"
-                      className="p-3 rounded-[8px] hover:bg-surface-container transition-colors flex items-start gap-3 border border-surface-container-high/60 group"
-                    >
-                      <div className="p-2 rounded-[5px] bg-primary/10 text-primary shrink-0 mt-0.5">
-                        <BrainCircuit className="w-4 h-4" />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-heading text-sm font-semibold text-on-surface group-hover:text-primary">
-                          Bogotá GovLLM
-                        </span>
-                        <span className="text-xs text-on-surface-variant">
-                          Modelo pre-entrenado, RAG cerrado y casos de uso de atención ciudadana.
-                        </span>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/ia-distrital/recomendador"
-                      className="p-3 rounded-[8px] hover:bg-surface-container transition-colors flex items-start gap-3 border border-surface-container-high/60 group"
-                    >
-                      <div className="p-2 rounded-[5px] bg-secondary-container/20 text-on-surface shrink-0 mt-0.5">
-                        <Bot className="w-4 h-4 text-secondary" />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-heading text-sm font-semibold text-on-surface group-hover:text-primary">
-                          Asistente para la integración de Oferta Distrital
-                        </span>
-                        <span className="text-xs text-on-surface-variant">
-                          Identifica que necesitas para integrar un trámite o servicio rápidamente
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </MegamenuDropdown>
-            </div>
+            {/* 5. IA DISTRITAL (Enlace directo simple sin megamenú) */}
+            <Link
+              id="btn-nav-ia"
+              href="/ia-distrital"
+              className={`whitespace-nowrap flex items-center px-3 py-2 border-b-2 font-heading text-[14px] transition-all min-h-[44px] h-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary ${
+                pathname.startsWith("/ia-distrital")
+                  ? "border-primary text-primary font-semibold"
+                  : "border-transparent text-on-surface hover:text-primary hover:bg-surface-container/60 font-medium"
+              }`}
+            >
+              <span>IA Distrital</span>
+            </Link>
           </nav>
 
           {/* Botón Móvil */}
@@ -741,26 +658,11 @@ export const HeaderBogota: React.FC = () => {
               </Link>
 
               <Link
-                href="/hub-de-conocimiento"
-                className="px-3 py-2.5 rounded-[5px] hover:bg-surface-container text-on-surface flex items-center justify-between"
-              >
-                <span>Hub de Conocimiento</span>
-                <ArrowRight className="w-4 h-4 text-on-surface-variant" />
-              </Link>
-
-              <Link
                 href="/ia-distrital"
                 className="px-3 py-2.5 rounded-[5px] hover:bg-surface-container text-on-surface flex items-center justify-between"
               >
-                <span>IA Distrital (GovLLM)</span>
+                <span>IA Distrital</span>
                 <ArrowRight className="w-4 h-4 text-on-surface-variant" />
-              </Link>
-
-              <Link
-                href="/ia-distrital/recomendador"
-                className="px-6 py-1.5 text-xs text-on-surface-variant hover:text-primary flex items-center gap-1"
-              >
-                • Agente Predictivo IAI
               </Link>
             </nav>
           </div>

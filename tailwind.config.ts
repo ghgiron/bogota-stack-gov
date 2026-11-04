@@ -58,6 +58,7 @@ const config: Config = {
         card: "15px",
       },
       fontFamily: {
+        sans: ["var(--font-work-sans)", "sans-serif"],
         heading: ["var(--font-montserrat)", "sans-serif"],
         body: ["var(--font-work-sans)", "sans-serif"],
       },

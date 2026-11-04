@@ -8,6 +8,9 @@ import { PlainLanguageComparisonCard } from "@/components/guias/PlainLanguageCom
 import { SdkCodeSnippet } from "@/components/guias/SdkCodeSnippet";
 import { UxPrinciplesCards } from "@/components/guias/UxPrinciplesCards";
 import { VerticalStepperPlayground } from "@/components/guias/VerticalStepperPlayground";
+import AuthParadigmComparator from "@/components/guias/identity/AuthParadigmComparator";
+import BWalletOid4vciSimulator from "@/components/guias/identity/BWalletOid4vciSimulator";
+import Kyc4StepsWizard from "@/components/guias/identity/Kyc4StepsWizard";
 import { getGuiaBySlug, getGuias } from "@/lib/firebase/db";
 import type { ContentBlock } from "@/types/guide";
 import {
@@ -16,13 +19,17 @@ import {
   ArrowLeft,
   ArrowRight,
   BookOpen,
+  Check,
   CheckCircle2,
   FileText,
   Info,
   Layers,
+  Network,
   ShieldCheck,
+  Table,
   Tag,
   Users,
+  X,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -237,6 +244,30 @@ function renderContentBlock(block: ContentBlock, index: number) {
       );
     }
 
+    if (cId === "bwallet-oid4vci-simulator") {
+      return (
+        <section key={block.id || `b-comp-${index}`} className="w-full">
+          <BWalletOid4vciSimulator />
+        </section>
+      );
+    }
+
+    if (cId === "kyc-4steps-wizard") {
+      return (
+        <section key={block.id || `b-comp-${index}`} className="w-full">
+          <Kyc4StepsWizard />
+        </section>
+      );
+    }
+
+    if (cId === "auth-paradigm-comparator") {
+      return (
+        <section key={block.id || `b-comp-${index}`} className="w-full">
+          <AuthParadigmComparator />
+        </section>
+      );
+    }
+
     // Tarjeta representativa para otros componentes
     return (
       <div
@@ -259,6 +290,118 @@ function renderContentBlock(block: ContentBlock, index: number) {
             {comp.description}
           </p>
         )}
+      </div>
+    );
+  }
+
+  // Renderizado de Diagramas Arquitectónicos (C4, Secuencia, Gobernanza)
+  if ((block.type === "diagram" || block.type === "diagrama") && block.content?.diagram) {
+    const diag = block.content.diagram;
+    const typeLabels: Record<string, string> = {
+      c4: "C4 Contexto / Contenedores GovStack",
+      sequence: "Diagrama de Secuencia OIDC / OID4VCI",
+      governance: "Flujo de Gobernanza y Ciclo de Vida",
+    };
+    const dType = (diag.type || diag.diagramType || "c4").toString();
+
+    return (
+      <div
+        key={block.id || `b-diag-${index}`}
+        className="rounded-[15px] p-6 bg-surface-container-lowest border border-blue-200/80 shadow-xs space-y-4 font-body"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-[5px] text-[10px] font-bold bg-[#EBF2FC] text-[#0049AE] uppercase tracking-wider">
+                {typeLabels[dType] || dType}
+              </span>
+              <h3 className="font-heading font-bold text-base text-text-main flex items-center gap-2">
+                <Network className="w-4 h-4 text-[#0049AE]" />
+                {diag.title || "Diagrama de Arquitectura"}
+              </h3>
+            </div>
+            {diag.boundaryDescription && (
+              <p className="text-xs text-text-muted mt-1">
+                <strong className="text-text-main font-semibold">Frontera GovStack:</strong>{" "}
+                {diag.boundaryDescription}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="rounded-[10px] bg-gray-900 border border-gray-800 p-4 font-mono text-xs text-gray-100 overflow-x-auto">
+          <pre className="whitespace-pre-wrap">{diag.code}</pre>
+        </div>
+      </div>
+    );
+  }
+
+  // Renderizado de Matrices Técnicas y Tablas de Tratamiento de Datos
+  if ((block.type === "matrix" || block.type === "matriz") && block.content?.matrix) {
+    const m = block.content.matrix;
+
+    return (
+      <div
+        key={block.id || `b-matrix-${index}`}
+        className="rounded-[15px] p-6 bg-surface-container-lowest border border-gray-200 shadow-xs space-y-4 font-body"
+      >
+        <div>
+          <div className="flex items-center gap-2">
+            <Table className="w-4 h-4 text-[#1B7A2E]" />
+            <h3 className="font-heading font-bold text-base text-text-main">
+              {m.title || "Matriz Técnica Estructurada"}
+            </h3>
+          </div>
+          {m.description && <p className="text-xs text-text-muted mt-1">{m.description}</p>}
+        </div>
+
+        <div className="overflow-x-auto rounded-[10px] border border-gray-200">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-gray-50 border-b border-gray-200 font-heading font-bold text-gray-700">
+              <tr>
+                {m.columns?.map((col) => (
+                  <th key={col.key} className="px-4 py-3">
+                    {col.label}
+                  </th>
+                ))}
+                <th className="px-4 py-3 text-right">Estado</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {m.rows?.map((row, rIdx) => (
+                <tr key={row.id || rIdx} className="hover:bg-gray-50/60 transition-colors">
+                  {m.columns?.map((col) => (
+                    <td key={col.key} className="px-4 py-3 text-text-main">
+                      {row.cells[col.key] || "—"}
+                    </td>
+                  ))}
+                  <td className="px-4 py-3 text-right whitespace-nowrap">
+                    {row.status === "success" && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] bg-[#EAF5EC] text-[#1B7A2E] font-semibold text-[11px]">
+                        <Check className="w-3 h-3" /> Conforme
+                      </span>
+                    )}
+                    {row.status === "error" && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] bg-[#FDF2F4] text-[#CC0E35] font-semibold text-[11px]">
+                        <X className="w-3 h-3" /> Restringido
+                      </span>
+                    )}
+                    {row.status === "warning" && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] bg-[#FEF9E7] text-[#B37B00] font-semibold text-[11px]">
+                        <AlertTriangle className="w-3 h-3" /> Condicional
+                      </span>
+                    )}
+                    {(!row.status || row.status === "neutral") && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-[5px] bg-gray-100 text-gray-600 font-medium text-[11px]">
+                        N/A
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

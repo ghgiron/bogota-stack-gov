@@ -7,30 +7,30 @@ import { OnboardingRoadmapAndCode } from "@/components/ia-landing/OnboardingRoad
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "IA Distrital | Modelo de IA de Servicio a la Ciudadanía (Bogotá GovLLM)",
+  title: "IA Distrital | Alcaldía Mayor de Bogotá D.C.",
   description:
-    "Landing oficial B2G del modelo Bogotá GovLLM para secretarías y entidades de la Alcaldía Mayor de Bogotá D.C. RAG normativo cerrado, cero alucinaciones y cumplimiento Ley 1581.",
+    "Inteligencia Artificial al servicio de la administración distrital. Herramienta oficial de apoyo a la gestión pública desarrollada para entidades de la Alcaldía Mayor de Bogotá D.C. y la Secretaría General.",
 };
 
 export default function IADistritalLandingPage() {
   return (
     <div className="flex flex-col w-full bg-surface min-h-screen text-on-surface">
-      {/* 1. Hero Section B2G (Orientado a Directores y Secretarías) */}
+      {/* 1. Hero Institucional Centrado y Limpio */}
       <GovLlmHero />
 
-      {/* 3. Sección: El Cerebro Distrital (RAG Indexado a Fuentes Oficiales) */}
+      {/* 2. Arquitectura de Recuperación (RAG Distrital) y Fuentes de Información */}
       <DistritalBrainGrid />
 
-      {/* 4. Sección: Tres Formas Inmediatas de Adoptar el Modelo */}
+      {/* 3. Casos de Uso en la Administración Distrital */}
       <AdoptionUseCases />
 
-      {/* 5. Sección: Gobernanza Institucional, Seguridad y Cumplimiento Normativo */}
+      {/* 4. Gobernanza Institucional, Seguridad y Cumplimiento Normativo */}
       <GovernanceSecurityCards />
 
-      {/* 6. Sección: De la Solicitud a Producción en 4 Pasos + Consola Técnica */}
+      {/* 5. Ruta de Adopción en 4 Pasos + Consola Técnica */}
       <OnboardingRoadmapAndCode />
 
-      {/* 7. Sección Final: CTA de Adopción y Contacto OTIC */}
+      {/* 6. CTA Institucional de Acompañamiento Técnico con la Secretaría General */}
       <AdoptionCtaBanner />
     </div>
   );

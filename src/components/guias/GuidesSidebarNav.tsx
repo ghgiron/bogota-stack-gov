@@ -80,12 +80,12 @@ const MASTER_GUIDES: MasterGuideItem[] = [
   },
   {
     id: "g17",
-    number: "6",
-    title: "Vinculación Autenticación",
+    number: "1.7",
+    title: "Vinculación de Autenticación",
     subtitle: "Keycloak SSO, biometría RNEC y Wallet W3C",
     tag: "",
     role: "Ingeniería",
-    slug: "vinculacion-autenticacion",
+    slug: "autenticacion",
   },
   {
     id: "g18",
